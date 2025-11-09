@@ -1,8 +1,11 @@
-import { useContext } from "react";
-import WebContext from "../../Context/WebContext";
+import HomeSlider from "./HomeSlider";
 
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+    <div>
+      <HomeSlider></HomeSlider>
+    </div>
+  );
 };
 
 export default HomePage;
