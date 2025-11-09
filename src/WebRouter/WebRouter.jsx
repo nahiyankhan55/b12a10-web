@@ -10,6 +10,7 @@ import MyExports from "../Layouts/MyExports/MyExports";
 import LoginPage from "../Layouts/Auth/LoginPage";
 import RegisterPage from "../Layouts/Auth/RegisterPage";
 import ForgotPasswordPage from "../Layouts/Auth/ForgotPasswordPage";
+import ProfilePage from "../Layouts/ProfilePage/ProfilePage";
 
 const WebRouter = () => {
   const router = createBrowserRouter([
@@ -58,6 +59,11 @@ const WebRouter = () => {
         {
           path: "/my-exports",
           element: <MyExports></MyExports>,
+        },
+        // profile page
+        {
+          path: "/profile",
+          element: <ProfilePage></ProfilePage>,
         },
         // auth
         {
