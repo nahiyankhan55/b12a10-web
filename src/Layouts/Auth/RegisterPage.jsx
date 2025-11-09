@@ -91,7 +91,7 @@ const RegisterPage = () => {
   return (
     <div className="w-full flex flex-col items-center sm:gap-5 gap-2 px-5 pt-5 pb-10">
       <HeadProvider>
-        <Title>Register || SkillSwap</Title>
+        <Title>Register || IE Hub</Title>
       </HeadProvider>
 
       <div className="flex flex-col gap-1 items-center md:mt-8 mt-4">
@@ -165,7 +165,7 @@ const RegisterPage = () => {
           <div className="w-full flex flex-col items-center">
             <Button
               type="submit"
-              className="w-full md:w-2/3 mx-auto py-2 rounded-md border-2 text-white! shadow-gray-400/90 bg-linear-to-tr from-purple-600 to-green-500 transition-all duration-300 hover:to-cyan-600 hover:shadow-md"
+              className="w-full md:w-2/3 mx-auto py-2 rounded-md border-2 text-white! shadow-gray-400/90 bg-linear-to-tr from-purple-600 to-green-500 transition-all duration-300 hover:to-sky-600 hover:shadow-md"
             >
               <p className="text-lg font-semibold py-1">Register</p>
             </Button>
@@ -185,7 +185,7 @@ const RegisterPage = () => {
         <p className="font-medium text-lg flex items-center gap-1">
           Already have an account?
           <Link
-            className="text-sky-600 hover:text-teal-700 duration-300 font-bold"
+            className="hover:text-sky-600 text-emerald-700 duration-300 font-bold"
             to={"/login"}
           >
             Login
