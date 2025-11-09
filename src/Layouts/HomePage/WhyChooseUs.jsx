@@ -4,9 +4,11 @@ import { RiSecurePaymentLine } from "react-icons/ri";
 
 const WhyChooseUs = () => {
   return (
-    <section className="py-10 px-5 bg-gray-50">
-      <h1 className="text-4xl font-bold text-center">Why Choose Our IE Hub</h1>
-      <p className="text-gray-600 text-center max-w-2xl mx-auto mt-2">
+    <section className="py-10 px-5 bg-linear-to-bl from-sky-300 via-white to-white">
+      <h1 className="md:text-4xl text-2xl font-bold text-center">
+        Why Choose Our IE Hub
+      </h1>
+      <p className="text-gray-600 text-center font-medium max-w-2xl mx-auto mt-2">
         A reliable platform built to simplify global trade with fast processing,
         secure systems, and a smooth importing and exporting experience.
       </p>
