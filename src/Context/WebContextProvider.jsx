@@ -1,12 +1,76 @@
 import { useState } from "react";
 import WebContext from "./WebContext";
 import PropTypes from "prop-types";
+import auth from "../firebase/firebase.config";
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import { toast } from "react-toastify";
 
 const WebContextProvider = ({ children }) => {
   // User Info
-  const [user, setUser] = useState("Nahiyan");
+  const [user, setUser] = useState(null);
   const [userName, setUserName] = useState("");
   const [userImage, setUserImage] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  // Handle Registration Email
+  const handleRegisterEmail = (email, password) => {
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+  // Handle Login Email
+  const handleLoginEmail = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  // Handle Google
+  const handleGoogle = () => {
+    setLoading(true);
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
+
+  // Handle Logout
+  const handleLogout = async () => {
+    setLoading(true);
+    try {
+      await signOut(auth);
+      toast.info(`Logout Successful`, {
+        position: "top-right",
+        autoClose: 2000,
+      });
+    } catch (error) {
+      toast.error(`${error.message}`, {
+        position: "top-right",
+        autoClose: 2000,
+      });
+    }
+  };
+
+  // User Observer
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        setUserName(currentUser.displayName);
+        setUserImage(currentUser.photoURL);
+      } else {
+        setUser(null);
+        setUserName("");
+        setUserImage("");
+      }
+      setLoading(false);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const contextNames = {
     user,
@@ -15,6 +79,12 @@ const WebContextProvider = ({ children }) => {
     setUserName,
     userImage,
     setUserImage,
+    loading,
+    setLoading,
+    handleRegisterEmail,
+    handleLoginEmail,
+    handleLogout,
+    handleGoogle,
   };
 
   return (
