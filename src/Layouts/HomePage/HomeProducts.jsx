@@ -6,8 +6,8 @@ import { Link } from "react-router";
 
 const HomeProducts = () => {
   const AxiosPublic = useAxiosPublic();
-  const { data: products = [], isLoading } = useQuery({
-    queryKey: ["products"],
+  const { data: productsHome = [], isLoading } = useQuery({
+    queryKey: ["productsHome"],
     queryFn: async () => {
       const res = await AxiosPublic.get("/products/home/latest");
       return res.data.data;
@@ -15,21 +15,24 @@ const HomeProducts = () => {
     retry: 3,
     retryDelay: 2000,
   });
-  console.log(products);
+  console.log(productsHome);
   if (isLoading) return <DataLoader></DataLoader>;
 
   return (
     <div className="max-w-6xl mx-auto py-10 px-5">
-      <h1 className="text-3xl font-bold text-center">Latest Products</h1>
+      <h1 className="sm:text-3xl md:text-4xl text-2xl font-bold text-center">
+        Latest Products
+      </h1>
       <p className="text-gray-600 text-center font-medium max-w-2xl mx-auto mt-2">
         Latest products from trusted sellers, updated in real time so you always
         see the freshest, most in-demand items ready for global shipment.
       </p>
       <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 mt-8">
-        {products.map((product) => (
+        {productsHome.map((product) => (
           <div
+            data-aos="zoom-in"
             key={product._id}
-            className="border rounded-lg shadow-md overflow-hidden hover:shadow-lg hover:shadow-gray-400 transition"
+            className="border rounded-lg shadow-md overflow-hidden hover:shadow-lg hover:shadow-gray-400 transition duration-300"
           >
             <img
               src={product.image}
@@ -65,6 +68,12 @@ const HomeProducts = () => {
           </div>
         ))}
       </div>
+      {/* Empty result */}
+      {productsHome.length === 0 && (
+        <p className="text-center mt-8 text-orange-500 font-medium text-lg">
+          No products found.
+        </p>
+      )}
     </div>
   );
 };
