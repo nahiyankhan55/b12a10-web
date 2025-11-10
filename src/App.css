@@ -1,0 +1,51 @@
+.gradient-border {
+  position: relative;
+  border-radius: 14px;
+  z-index: 0;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+
+  /* Bigger gradient movement space */
+  background: linear-gradient(
+    180deg,
+    #a87300,
+    #ff1cf7,
+    #00f0ff,
+    #8a2be2,
+    #ffae00
+  );
+
+  background-size: 100% 400%;
+
+  /* Fast animation */
+  animation: rotateGradient 5s linear infinite;
+
+  z-index: -1;
+}
+
+.gradient-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: white;
+  z-index: -1;
+}
+
+/* Faster and smoother vertical rotating gradient */
+@keyframes rotateGradient {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
