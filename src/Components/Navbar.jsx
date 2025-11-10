@@ -4,13 +4,15 @@ import { RiLoginBoxFill, RiLoginBoxLine, RiMenu2Fill } from "react-icons/ri";
 import WebContext from "../Context/WebContext";
 import { ClickAwayListener } from "@mui/material";
 import { Link, NavLink } from "react-router";
+import { FiSun, FiMoon } from "react-icons/fi";
 
 const Navbar = () => {
   // nav func
   const [navShow, setShowNav] = useState(false);
   const navShowHide = () => setShowNav((prev) => !prev);
   // context
-  const { user, userImage, handleLogout } = useContext(WebContext);
+  const { user, userImage, handleLogout, theme, toggleTheme } =
+    useContext(WebContext);
   // profile func
   const [showProfile, setShowProfile] = useState(false);
   const profileShowHide = () => setShowProfile((prev) => !prev);
@@ -23,7 +25,11 @@ const Navbar = () => {
         setShowProfile(false);
       }}
     >
-      <div className="bg-white/90 w-full fixed z-50">
+      <div
+        className={`${
+          theme === "dark" ? "bg-gray-500/90 text-white" : "bg-white/90"
+        } w-full fixed z-50 max-w-[1440px]`}
+      >
         <div className="text-black flex justify-between items-center py-2 md:px-6 sm:px-3 px-2 mx-auto shadow-md">
           <div className="relative text-xl flex gap-3 font-bold items-center">
             <div className="flex">
@@ -141,7 +147,17 @@ const Navbar = () => {
           </div>
 
           {user ? (
-            <div className="relative">
+            <div className="relative flex items-center gap-3">
+              <button
+                onClick={toggleTheme}
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition bg-white font-medium"
+              >
+                {theme === "light" ? (
+                  <FiMoon className="text-xl text-yellow-500"></FiMoon>
+                ) : (
+                  <FiSun className="text-xl text-yellow-400"></FiSun>
+                )}
+              </button>
               <button onClick={profileShowHide}>
                 <img
                   className="h-12 w-12 object-cover rounded-full border-2 border-purple-700 cursor-pointer hover:scale-105 duration-300 transition"
@@ -190,6 +206,16 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="flex gap-3 text-black">
+              <button
+                onClick={toggleTheme}
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              >
+                {theme === "light" ? (
+                  <FiMoon className="text-xl text-yellow-500"></FiMoon>
+                ) : (
+                  <FiSun className="text-xl text-yellow-400"></FiSun>
+                )}
+              </button>
               <NavLink
                 to="/login"
                 className={({ isActive }) =>

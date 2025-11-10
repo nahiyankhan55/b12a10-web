@@ -73,6 +73,22 @@ const WebContextProvider = ({ children }) => {
     };
   }, []);
 
+  // Theme Control
+  const [theme, setTheme] = useState(() => {
+    // Check localStorage for saved theme or default to light
+    return localStorage.getItem("theme") || "light";
+  });
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      const newTheme = prev === "light" ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+      return newTheme;
+    });
+  };
+  useEffect(() => {
+    document.body.className = theme === "dark" ? "dark" : "light";
+  }, [theme]);
+
   const contextNames = {
     user,
     setUser,
@@ -86,6 +102,8 @@ const WebContextProvider = ({ children }) => {
     handleLoginEmail,
     handleLogout,
     handleGoogle,
+    theme,
+    toggleTheme,
   };
 
   return (

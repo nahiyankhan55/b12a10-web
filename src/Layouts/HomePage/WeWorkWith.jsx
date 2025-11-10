@@ -6,14 +6,28 @@ import sb4 from "./../../assets/sb4.jpg";
 import sb5 from "./../../assets/sb5.jpg";
 import sb6 from "./../../assets/sb6.jpg";
 import sb7 from "./../../assets/sb7.jpg";
+import { useContext } from "react";
+import WebContext from "../../Context/WebContext";
 
 const WeWorkWith = () => {
+  const { theme } = useContext(WebContext);
+
   return (
-    <section className="w-full p-2 flex flex-col items-center  gap-1 bg-linear-to-br from-purple-300 via-white to-white sm:py-20 py-10 sm:px-5">
-      <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold text-black">
+    <section
+      className={`w-full p-2 flex flex-col items-center gap-1 bg-linear-to-br ${
+        theme === "dark"
+          ? "from-purple-700 via-gray-500 to-gray-600"
+          : "from-purple-300 via-white to-white"
+      } sm:py-20 py-10 sm:px-5`}
+    >
+      <h2 className="md:text-4xl sm:text-3xl text-2xl font-bold">
         We Work With
       </h2>
-      <p className="max-w-2xl font-medium text-gray-600 mt-2 text-center mx-auto">
+      <p
+        className={`${
+          theme === "dark" ? "text-gray-300" : "text-gray-600"
+        }  text-center font-medium max-w-2xl mx-auto mt-2`}
+      >
         Trusted by international exporters, suppliers, and logistics companies
         across the world. These global brands help our growing import export
         ecosystem.

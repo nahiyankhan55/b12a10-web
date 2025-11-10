@@ -68,6 +68,13 @@ const ProductDetails = () => {
     }
   };
 
+  if (!product)
+    return (
+      <p className="text-lg font-medium text-orange-600 py-10 px-5 text-center">
+        Product Not Found!
+      </p>
+    );
+
   return (
     <div className="max-w-5xl mx-auto p-8">
       <HeadProvider>
@@ -118,7 +125,7 @@ const ProductDetails = () => {
 
       {/* Modal */}
       {openModal && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center text-black">
           <div className="bg-white p-6 rounded-lg w-96 shadow-xl">
             <h2 className="text-xl font-semibold mb-3">Import Product</h2>
 

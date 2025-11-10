@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 const AddProductPage = () => {
   const AxiosPublic = useAxiosPublic();
   const [loading, setLoading] = useState(false);
-  const { user } = useContext(WebContext);
+  const { user, theme } = useContext(WebContext);
 
   // form functionality
   const handleAdd = async (e) => {
@@ -53,7 +53,13 @@ const AddProductPage = () => {
     }
   };
   return (
-    <div className="py-10 px-5 w-full bg-linear-to-br from-purple-300 via-white to-sky-300">
+    <div
+      className={`py-10 px-5 w-full  ${
+        theme === "dark"
+          ? "bg-gray-600 text-white"
+          : "bg-linear-to-br from-purple-300 via-white to-sky-300"
+      }`}
+    >
       <h1 className="md:text-4xl sm:text-3xl text-2xl font-bold text-center mb-8">
         Add New Product
       </h1>

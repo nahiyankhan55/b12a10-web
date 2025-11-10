@@ -3,9 +3,12 @@ import useAxiosPublic from "../../Hook/useAxiosPublic";
 import DataLoader from "../../Components/DataLoader";
 import { Rating } from "@mui/material";
 import { Link } from "react-router";
+import { useContext } from "react";
+import WebContext from "../../Context/WebContext";
 
 const HomeProducts = () => {
   const AxiosPublic = useAxiosPublic();
+  const { theme } = useContext(WebContext);
   const { data: productsHome = [], isLoading } = useQuery({
     queryKey: ["productsHome"],
     queryFn: async () => {
@@ -15,7 +18,6 @@ const HomeProducts = () => {
     retry: 3,
     retryDelay: 2000,
   });
-  console.log(productsHome);
   if (isLoading) return <DataLoader></DataLoader>;
 
   return (
@@ -23,7 +25,11 @@ const HomeProducts = () => {
       <h1 className="sm:text-3xl md:text-4xl text-2xl font-bold text-center">
         Latest Products
       </h1>
-      <p className="text-gray-600 text-center font-medium max-w-2xl mx-auto mt-2">
+      <p
+        className={`${
+          theme === "dark" ? "text-gray-300" : "text-gray-600"
+        }  text-center font-medium max-w-2xl mx-auto mt-2`}
+      >
         Latest products from trusted sellers, updated in real time so you always
         see the freshest, most in-demand items ready for global shipment.
       </p>
