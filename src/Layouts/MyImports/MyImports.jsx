@@ -67,7 +67,9 @@ const MyImports = () => {
         <Title>My Imports || IE Hub</Title>
       </HeadProvider>
 
-      <h1 className="text-3xl font-bold text-center">My Imports</h1>
+      <h1 className="md:text-4xl sm:text-3xl text-2xl font-bold text-center">
+        My Imports
+      </h1>
       <p className="text-center text-gray-600 mt-2 max-w-2xl mx-auto">
         View all products you have imported through the "Import Now" button. You
         can remove or view details of each item.
