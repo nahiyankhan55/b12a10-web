@@ -2,6 +2,7 @@ import { useContext } from "react";
 import DataLoader from "../Components/DataLoader";
 import WebContext from "../Context/WebContext";
 import PropTypes from "prop-types";
+import { Navigate } from "react-router";
 
 const IsLoginUser = ({ children }) => {
   const { user, loading } = useContext(WebContext);
