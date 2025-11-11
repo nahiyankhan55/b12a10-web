@@ -5,15 +5,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { HeadProvider, Title } from "react-head";
 import auth from "../../firebase/firebase.config";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { toast } from "react-toastify";
+import WebContext from "../../Context/WebContext";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const { theme } = useContext(WebContext);
 
   const handleForgotPassword = (e) => {
     e.preventDefault();
@@ -38,7 +40,11 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-full w-full bg-gray-100 px-5 py-10">
+    <div
+      className={`flex justify-center items-center h-full w-full ${
+        theme === "dark" ? "bg-gray-600" : "bg-gray-100"
+      } px-5 py-10`}
+    >
       <HeadProvider>
         <Title>Forgot Password || IE Hub</Title>
       </HeadProvider>

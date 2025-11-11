@@ -16,6 +16,7 @@ const RegisterPage = () => {
     setUserName,
     setUserImage,
     setUser,
+    theme,
   } = useContext(WebContext);
   const navigate = useNavigate();
 
@@ -89,7 +90,11 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center sm:gap-5 gap-2 px-5 pt-5 pb-10">
+    <div
+      className={`w-full flex flex-col items-center sm:gap-5 gap-2 px-5 pt-5 pb-10 ${
+        theme === "dark" && "bg-gray-600 text-white"
+      }`}
+    >
       <HeadProvider>
         <Title>Register || IE Hub</Title>
       </HeadProvider>

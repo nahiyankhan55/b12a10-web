@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import WebContext from "../../Context/WebContext";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
 import { toast } from "react-toastify";
+import { HeadProvider, Title } from "react-head";
 
 const AddProductPage = () => {
   const AxiosPublic = useAxiosPublic();
@@ -60,6 +61,9 @@ const AddProductPage = () => {
           : "bg-linear-to-br from-purple-300 via-white to-sky-300"
       }`}
     >
+      <HeadProvider>
+        <Title>Add Export || IE Hub</Title>
+      </HeadProvider>
       <h1 className="md:text-4xl sm:text-3xl text-2xl font-bold text-center mb-8">
         Add New Product
       </h1>
