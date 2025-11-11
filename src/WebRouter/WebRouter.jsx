@@ -11,6 +11,7 @@ import LoginPage from "../Layouts/Auth/LoginPage";
 import RegisterPage from "../Layouts/Auth/RegisterPage";
 import ForgotPasswordPage from "../Layouts/Auth/ForgotPasswordPage";
 import ProfilePage from "../Layouts/ProfilePage/ProfilePage";
+import IsLoginUser from "./IsLoginUser";
 
 const WebRouter = () => {
   const router = createBrowserRouter([
@@ -30,7 +31,11 @@ const WebRouter = () => {
         },
         {
           path: "/add-product",
-          element: <AddProductPage></AddProductPage>,
+          element: (
+            <IsLoginUser>
+              <AddProductPage></AddProductPage>
+            </IsLoginUser>
+          ),
         },
         // all products
         {
@@ -40,7 +45,11 @@ const WebRouter = () => {
         // details
         {
           path: "/product/:id",
-          element: <ProductDetails></ProductDetails>,
+          element: (
+            <IsLoginUser>
+              <ProductDetails></ProductDetails>
+            </IsLoginUser>
+          ),
         },
         // imports
         {
@@ -49,7 +58,11 @@ const WebRouter = () => {
         },
         {
           path: "/my-imports",
-          element: <MyImports></MyImports>,
+          element: (
+            <IsLoginUser>
+              <MyImports></MyImports>
+            </IsLoginUser>
+          ),
         },
         // exports
         {
@@ -58,12 +71,20 @@ const WebRouter = () => {
         },
         {
           path: "/my-exports",
-          element: <MyExports></MyExports>,
+          element: (
+            <IsLoginUser>
+              <MyExports></MyExports>
+            </IsLoginUser>
+          ),
         },
         // profile page
         {
           path: "/profile",
-          element: <ProfilePage></ProfilePage>,
+          element: (
+            <IsLoginUser>
+              <ProfilePage></ProfilePage>
+            </IsLoginUser>
+          ),
         },
         // auth
         {

@@ -85,7 +85,7 @@ const MyImports = () => {
           <input
             type="text"
             placeholder="Search imported products..."
-            className="border px-4 py-2 rounded-lg w-full max-w-md shadow-md focus:outline-blue-400"
+            className="border px-4 py-2 rounded-lg w-full max-w-md shadow-md focus:outline-blue-400 text-black bg-white"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
