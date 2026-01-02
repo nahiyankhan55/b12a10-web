@@ -10,7 +10,7 @@ const ErrorPage = () => {
       </p>
       <Link
         to={"/"}
-        className="py-2 px-5 mx-auto rounded bg-cyan-600 text-center font-bold transition hover:bg-sky-500 text-white"
+        className="py-2 px-5 mx-auto rounded bg-purple-600 text-center font-bold transition hover:bg-purple-500 text-white"
       >
         Go To Homepage
       </Link>

@@ -63,14 +63,14 @@ const Footer = () => {
             </li>
             <li>
               <a href="#" className="items-center flex gap-1 group">
-                <span className="p-1 rounded-full bg-white group-hover:bg-sky-700 group-hover:text-white text-black duration-300">
+                <span className="p-1 rounded-full bg-white group-hover:bg-purple-700 group-hover:text-white text-black duration-300">
                   <FaLinkedinIn></FaLinkedinIn>
                 </span>
               </a>
             </li>
             <li>
               <a href="#" className="items-center flex gap-1 group">
-                <span className="p-1 rounded-full bg-white group-hover:bg-blue-600 group-hover:text-white text-black duration-300">
+                <span className="p-1 rounded-full bg-white group-hover:bg-purple-600 group-hover:text-white text-black duration-300">
                   <FaFacebookF></FaFacebookF>
                 </span>
               </a>

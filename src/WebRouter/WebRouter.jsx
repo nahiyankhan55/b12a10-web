@@ -12,6 +12,14 @@ import RegisterPage from "../Layouts/Auth/RegisterPage";
 import ForgotPasswordPage from "../Layouts/Auth/ForgotPasswordPage";
 import ProfilePage from "../Layouts/ProfilePage/ProfilePage";
 import IsLoginUser from "./IsLoginUser";
+import MainLayout from "../Layouts/MainLayout/MainLayout";
+import Dashboard from "../Layouts/Dashboard/Dashboard";
+import DashboardHome from "../Layouts/Dashboard/DashboardHome/DashboardHome";
+import About from "../Layouts/MainLayout/Static/About/About";
+import Career from "../Layouts/MainLayout/Static/Career/Career";
+import Contact from "../Layouts/MainLayout/Static/Contact/Contact";
+import Policy from "../Layouts/MainLayout/Static/Policy/Policy";
+import Terms from "../Layouts/MainLayout/Static/Terms/Terms";
 
 const WebRouter = () => {
   const router = createBrowserRouter([
@@ -22,82 +30,105 @@ const WebRouter = () => {
       children: [
         {
           path: "/",
-          element: <HomePage></HomePage>,
-        },
-        // add product
-        {
-          path: "/add",
-          element: <Navigate to={"/add-product"}></Navigate>,
-        },
-        {
-          path: "/add-product",
-          element: (
-            <IsLoginUser>
-              <AddProductPage></AddProductPage>
-            </IsLoginUser>
-          ),
-        },
-        // all products
-        {
-          path: "/products",
-          element: <ProductsPage></ProductsPage>,
-        },
-        // details
-        {
-          path: "/product/:id",
-          element: (
-            <IsLoginUser>
-              <ProductDetails></ProductDetails>
-            </IsLoginUser>
-          ),
-        },
-        // imports
-        {
-          path: "/imports",
-          element: <Navigate to={"/my-imports"}></Navigate>,
-        },
-        {
-          path: "/my-imports",
-          element: (
-            <IsLoginUser>
-              <MyImports></MyImports>
-            </IsLoginUser>
-          ),
-        },
-        // exports
-        {
-          path: "/exports",
-          element: <Navigate to={"/my-exports"}></Navigate>,
-        },
-        {
-          path: "/my-exports",
-          element: (
-            <IsLoginUser>
-              <MyExports></MyExports>
-            </IsLoginUser>
-          ),
-        },
-        // profile page
-        {
-          path: "/profile",
-          element: (
-            <IsLoginUser>
-              <ProfilePage></ProfilePage>
-            </IsLoginUser>
-          ),
-        },
-        // auth
-        {
-          path: "/login",
-          element: <LoginPage></LoginPage>,
+          element: <MainLayout></MainLayout>,
+          children: [
+            {
+              path: "/",
+              element: <HomePage></HomePage>,
+            },
+            // all products
+            {
+              path: "/products",
+              element: <ProductsPage></ProductsPage>,
+            },
+            // details
+            {
+              path: "/product/:id",
+              element: <ProductDetails></ProductDetails>,
+            },
+
+            // auth
+            {
+              path: "/login",
+              element: <LoginPage></LoginPage>,
+            },
+            {
+              path: "/register",
+              element: <RegisterPage></RegisterPage>,
+            },
+            {
+              path: "/forgot",
+              element: <ForgotPasswordPage></ForgotPasswordPage>,
+            },
+
+            // website
+            {
+              path: "/about",
+              element: <About></About>,
+            },
+            {
+              path: "/career",
+              element: <Career></Career>,
+            },
+            {
+              path: "/contact",
+              element: <Contact></Contact>,
+            },
+            {
+              path: "/privacy-policy",
+              element: <Policy></Policy>,
+            },
+            {
+              path: "/terms-conditions",
+              element: <Terms></Terms>,
+            },
+          ],
         },
         {
-          path: "/register",
-          element: <RegisterPage></RegisterPage>,
-        },
-        {
-          path: "/forgot",
-          element: <ForgotPasswordPage></ForgotPasswordPage>,
+          path: "/dashboard",
+          element: <Dashboard></Dashboard>,
+          children: [
+            {
+              path: "/dashboard",
+              element: <Navigate to={"/dashboard/home"}></Navigate>,
+            },
+            {
+              path: "/dashboard/home",
+              element: <DashboardHome></DashboardHome>,
+            },
+            // add product
+            {
+              path: "/dashboard/add",
+              element: <Navigate to={"/dashboard/add-product"}></Navigate>,
+            },
+            {
+              path: "/dashboard/add-product",
+              element: <AddProductPage></AddProductPage>,
+            },
+            // imports
+            {
+              path: "/dashboard/imports",
+              element: <Navigate to={"/dashboard/my-imports"}></Navigate>,
+            },
+            {
+              path: "/dashboard/my-imports",
+              element: <MyImports></MyImports>,
+            },
+            // exports
+            {
+              path: "/dashboard/exports",
+              element: <Navigate to={"/dashboard/my-exports"}></Navigate>,
+            },
+            {
+              path: "/dashboard/my-exports",
+              element: <MyExports></MyExports>,
+            },
+            // profile page
+            {
+              path: "/dashboard/profile",
+              element: <ProfilePage></ProfilePage>,
+            },
+          ],
         },
       ],
     },

@@ -128,7 +128,7 @@ const LoginPage = () => {
             <div className="w-full flex flex-col items-center">
               <Button
                 type="submit"
-                className="transition-all duration-300 hover:shadow-md rounded-md border-2 text-white! shadow-gray-400/90 bg-linear-to-tr! w-full mx-auto py-2 from-emerald-700 to-fuchsia-700 hover:to-sky-600"
+                className="transition-all duration-300 hover:shadow-md rounded-md border-2 text-white! shadow-gray-400/90 bg-linear-to-tr! w-full mx-auto py-2 from-emerald-700 to-fuchsia-700 hover:to-purple-600"
               >
                 <p className="text-lg font-semibold py-1">Login</p>
               </Button>
@@ -138,7 +138,7 @@ const LoginPage = () => {
           <p className="text-xl font-bold text-center">or</p>
           <button
             onClick={handleGoogleMethod}
-            className="w-full mx-auto border-2 border-sky-500 bg-white rounded-md text-xl font-semibold transition hover:shadow-md hover:scale-105 shadow-gray-400/90 hover:bg-sky-200 hover:border-sky-600 py-2 flex items-center justify-center gap-2 text-black cursor-pointer"
+            className="w-full mx-auto border-2 border-purple-500 bg-white rounded-md text-xl font-semibold transition hover:shadow-md hover:scale-105 shadow-gray-400/90 hover:bg-purple-200 hover:border-purple-600 py-2 flex items-center justify-center gap-2 text-black cursor-pointer"
           >
             <FcGoogle className="text-2xl"></FcGoogle>
             Google
@@ -146,14 +146,14 @@ const LoginPage = () => {
           <p className="font-medium text-lg flex items-center gap-1">
             New User?
             <Link
-              className="text-cyan-600 hover:text-teal-700 duration-300 font-bold"
+              className="text-purple-600 hover:text-teal-700 duration-300 font-bold"
               to={"/register"}
             >
               Register
             </Link>
           </p>
           <Link
-            className="text-orange-600 hover:text-green-800 duration-300 font-bold text-lg"
+            className="text-orange-600 hover:text-purple-800 duration-300 font-bold text-lg"
             to={"/forgot"}
           >
             Forgot Password?

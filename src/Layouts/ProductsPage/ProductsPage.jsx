@@ -44,7 +44,7 @@ const ProductsPage = () => {
           <input
             type="text"
             placeholder="Search products..."
-            className="border px-4 py-2 rounded-lg w-full max-w-md shadow-md focus:outline-blue-400 text-black bg-white"
+            className="border px-4 py-2 rounded-lg w-full max-w-md shadow-md focus:outline-purple-400 text-black bg-white"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -77,7 +77,7 @@ const ProductsPage = () => {
                     <span
                       className={
                         product.quantity > 10
-                          ? "text-green-600 font-semibold"
+                          ? "text-purple-600 font-semibold"
                           : product.quantity > 0
                           ? "text-orange-600 font-semibold"
                           : "text-red-600 font-semibold"
@@ -89,7 +89,7 @@ const ProductsPage = () => {
 
                   <Link
                     to={`/product/${product._id}`}
-                    className="mt-2 bg-blue-500 text-white py-1 rounded text-center hover:bg-blue-600 transition"
+                    className="mt-2 bg-purple-500 text-white py-1 rounded text-center hover:bg-purple-600 transition"
                   >
                     See Details
                   </Link>

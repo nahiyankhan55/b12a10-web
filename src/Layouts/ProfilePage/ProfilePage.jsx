@@ -76,7 +76,7 @@ const ProfilePage = () => {
         <Title>Profile || IE Hub</Title>
       </HeadProvider>
       <div className="md:px-10 sm:px-5 px-2 w-full max-w-lg">
-        <div className="py-10 flex flex-col items-center gap-3 px-5 text-center rounded-xl shadow-lg shadow-gray-500 border-b-2 border-cyan-800">
+        <div className="py-10 flex flex-col items-center gap-3 px-5 text-center rounded-xl shadow-lg shadow-gray-500 border-b-2 border-purple-800">
           <img
             className="md:w-40 sm:w-36 w-28 md:h-40 sm:h-36 h-28 rounded-full object-cover shadow"
             src={userImage || "https://i.ibb.co/jZ67CdJ2/download.jpg"}

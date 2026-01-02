@@ -85,7 +85,7 @@ const MyImports = () => {
           <input
             type="text"
             placeholder="Search imported products..."
-            className="border px-4 py-2 rounded-lg w-full max-w-md shadow-md focus:outline-blue-400 text-black bg-white"
+            className="border px-4 py-2 rounded-lg w-full max-w-md shadow-md focus:outline-purple-400 text-black bg-white"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -126,7 +126,7 @@ const MyImports = () => {
                       </button>
                       <Link
                         to={`/product/${product.p_id}`}
-                        className="bg-blue-500 text-white py-1 rounded text-center font-medium hover:bg-blue-600 transition"
+                        className="bg-purple-500 text-white py-1 rounded text-center font-medium hover:bg-purple-600 transition"
                       >
                         See Details
                       </Link>

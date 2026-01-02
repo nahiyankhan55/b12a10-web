@@ -58,7 +58,7 @@ const AddProductPage = () => {
       className={`py-10 px-5 w-full  ${
         theme === "dark"
           ? "bg-gray-600 text-white"
-          : "bg-linear-to-br from-purple-300 via-white to-sky-300"
+          : "bg-linear-to-br from-white via-white to-purple-300"
       }`}
     >
       <HeadProvider>
@@ -70,7 +70,8 @@ const AddProductPage = () => {
 
       <form
         onSubmit={handleAdd}
-        className="flex flex-col gap-5 max-w-3xl mx-auto w-full p-5 rounded-xl bg-white shadow-lg gradient-border"
+        className="flex flex-col gap-5 max-w-3xl mx-auto w-full p-5 rounded-xl bg-white shadow-lg shadow-gray-600 gradient-border"
+        data-aos="fade-up-right"
       >
         <div className="flex md:flex-nowrap flex-wrap items-center gap-4">
           <TextField

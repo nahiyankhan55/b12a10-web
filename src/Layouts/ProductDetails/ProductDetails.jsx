@@ -101,7 +101,7 @@ const ProductDetails = () => {
               <span
                 className={`ml-2 font-bold ${
                   product.quantity > 10
-                    ? "text-green-600"
+                    ? "text-purple-600"
                     : product.quantity > 0
                     ? "text-orange-600"
                     : "text-red-600"
@@ -116,7 +116,7 @@ const ProductDetails = () => {
 
           <button
             onClick={() => setOpenModal(true)}
-            className="mt-5 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 font-medium"
+            className="mt-5 bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 font-medium"
           >
             Import Now
           </button>
@@ -159,7 +159,7 @@ const ProductDetails = () => {
                 className={`px-5 py-2 rounded text-white ${
                   isDisabled
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-700"
+                    : "bg-purple-600 hover:bg-purple-700"
                 }`}
               >
                 Submit

@@ -18,12 +18,9 @@ function App() {
         theme === "dark" && "bg-gray-600 text-white"
       }`}
     >
-      <Navbar></Navbar>
-      <div className="py-10 w-full"></div>
       <div className="flex-1 w-full">
         <Outlet></Outlet>
       </div>
-      <Footer></Footer>
     </div>
   );
 }

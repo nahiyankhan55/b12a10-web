@@ -56,7 +56,7 @@ const HomeProducts = () => {
                   className={`font-medium ${
                     product.quantity > 0
                       ? product.quantity > 10
-                        ? "text-green-600"
+                        ? "text-purple-600"
                         : "text-orange-600"
                       : "text-red-600"
                   }`}
@@ -66,7 +66,7 @@ const HomeProducts = () => {
               </p>
               <Link
                 to={`/product/${product._id}`}
-                className="mt-2 text-center bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition"
+                className="mt-2 text-center bg-purple-500 text-white py-1 rounded hover:bg-purple-600 transition"
               >
                 See Details
               </Link>

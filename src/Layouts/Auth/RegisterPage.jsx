@@ -103,7 +103,7 @@ const RegisterPage = () => {
         <h3 className="md:text-4xl sm:text-3xl text-2xl font-semibold">
           Register
         </h3>
-        <p className="text-base font-medium text-sky-500">
+        <p className="text-base font-medium text-purple-500">
           Join us to import/export products globally.
         </p>
       </div>
@@ -170,7 +170,7 @@ const RegisterPage = () => {
           <div className="w-full flex flex-col items-center">
             <Button
               type="submit"
-              className="w-full md:w-2/3 mx-auto py-2 rounded-md border-2 text-white! shadow-gray-400/90 bg-linear-to-tr from-purple-600 to-green-500 transition-all duration-300 hover:to-sky-600 hover:shadow-md"
+              className="w-full md:w-2/3 mx-auto py-2 rounded-md border-2 text-white! shadow-gray-400/90 bg-linear-to-tr from-purple-600 to-purple-500 transition-all duration-300 hover:to-purple-600 hover:shadow-md"
             >
               <p className="text-lg font-semibold py-1">Register</p>
             </Button>
@@ -181,7 +181,7 @@ const RegisterPage = () => {
 
         <button
           onClick={handleGoogleMethod}
-          className="w-full md:w-1/2 mx-auto border-2 border-cyan-500 bg-white rounded-md text-xl font-semibold transition hover:shadow-md hover:scale-105 shadow-gray-400/90 hover:border-cyan-600 py-2 flex items-center justify-center gap-2 text-black cursor-pointer"
+          className="w-full md:w-1/2 mx-auto border-2 border-purple-500 bg-white rounded-md text-xl font-semibold transition hover:shadow-md hover:scale-105 shadow-gray-400/90 hover:border-purple-600 py-2 flex items-center justify-center gap-2 text-black cursor-pointer"
         >
           <FcGoogle className="text-2xl"></FcGoogle>
           Google
@@ -190,14 +190,14 @@ const RegisterPage = () => {
         <p className="font-medium text-lg flex items-center gap-1">
           Already have an account?
           <Link
-            className="hover:text-sky-600 text-emerald-700 duration-300 font-bold"
+            className="hover:text-purple-600 text-emerald-700 duration-300 font-bold"
             to={"/login"}
           >
             Login
           </Link>
         </p>
         <Link
-          className="text-orange-600 hover:text-green-800 duration-300 font-bold text-lg"
+          className="text-orange-600 hover:text-purple-800 duration-300 font-bold text-lg"
           to={"/forgot"}
         >
           Forgot Password?

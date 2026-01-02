@@ -119,7 +119,7 @@ const MyExports = () => {
           <input
             type="text"
             placeholder="Search exported products..."
-            className="border px-4 py-2 rounded-lg w-full max-w-md shadow-md focus:outline-blue-400 text-black bg-white"
+            className="border px-4 py-2 rounded-lg w-full max-w-md shadow-md focus:outline-purple-400 text-black bg-white"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -156,7 +156,7 @@ const MyExports = () => {
                     </button>
                     <button
                       onClick={() => handleOpenUpdate(product)}
-                      className="bg-green-500 text-white py-1 rounded hover:bg-green-600 transition font-medium"
+                      className="bg-purple-500 text-white py-1 rounded hover:bg-purple-600 transition font-medium"
                     >
                       Update
                     </button>
@@ -258,7 +258,7 @@ const MyExports = () => {
                   </button>
                   <button
                     type="submit"
-                    className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
+                    className="bg-purple-500 text-white py-1 px-3 rounded hover:bg-purple-600"
                   >
                     Submit
                   </button>

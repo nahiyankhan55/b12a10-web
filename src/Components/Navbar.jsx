@@ -5,6 +5,7 @@ import WebContext from "../Context/WebContext";
 import { ClickAwayListener } from "@mui/material";
 import { Link, NavLink } from "react-router";
 import { FiSun, FiMoon } from "react-icons/fi";
+import { MdDashboard } from "react-icons/md";
 
 const Navbar = () => {
   // nav func
@@ -45,6 +46,16 @@ const Navbar = () => {
                           ? "border-purple-600 text-purple-700 border-b-2 py-1 px-4 rounded-lg text-center"
                           : "border-b-2 border-transparent py-2 px-4 rounded-lg text-center"
                       }
+                      to="/"
+                    >
+                      Home
+                    </NavLink>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "border-purple-600 text-purple-700 border-b-2 py-1 px-4 rounded-lg text-center"
+                          : "border-b-2 border-transparent py-2 px-4 rounded-lg text-center"
+                      }
                       to="/products"
                     >
                       Products
@@ -55,9 +66,9 @@ const Navbar = () => {
                           ? "border-purple-600 text-purple-700 border-b-2 py-1 px-4 rounded-lg text-center"
                           : "border-b-2 border-transparent py-2 px-4 rounded-lg text-center"
                       }
-                      to="/my-imports"
+                      to="/about"
                     >
-                      Imports
+                      About
                     </NavLink>
                     <NavLink
                       className={({ isActive }) =>
@@ -65,9 +76,9 @@ const Navbar = () => {
                           ? "border-purple-600 text-purple-700 border-b-2 py-1 px-4 rounded-lg text-center"
                           : "border-b-2 border-transparent py-2 px-4 rounded-lg text-center"
                       }
-                      to="/my-exports"
+                      to="/career"
                     >
-                      Exports
+                      Career
                     </NavLink>
                     <NavLink
                       className={({ isActive }) =>
@@ -75,9 +86,9 @@ const Navbar = () => {
                           ? "border-purple-600 text-purple-700 border-b-2 py-1 px-4 rounded-lg text-center"
                           : "border-b-2 border-transparent py-2 px-4 rounded-lg text-center"
                       }
-                      to="/add-product"
+                      to="/contact"
                     >
-                      Add Export
+                      Contact
                     </NavLink>
                   </ul>
                 </div>
@@ -86,8 +97,8 @@ const Navbar = () => {
             <NavLink
               className={({ isActive }) =>
                 isActive
-                  ? "group flex items-center gap-1 text-purple-500 border-purple-700 border-b-2 border-l-2 rounded-tl-lg rounded-br-lg hover:scale-105 hover:border-cyan-700 duration-300 px-1 py-1 pr-2"
-                  : "group flex items-center gap-1 border-b-2 border-l-2 border-black rounded-tl-lg rounded-br-lg hover:scale-105 hover:border-cyan-700 duration-300 px-1 py-1 pr-2"
+                  ? "group flex items-center gap-1 text-purple-500 border-purple-700 border-b-2 border-l-2 rounded-tl-lg rounded-br-lg hover:scale-105 hover:border-purple-700 duration-300 px-1 py-1 pr-2"
+                  : "group flex items-center gap-1 border-b-2 border-l-2 border-black rounded-tl-lg rounded-br-lg hover:scale-105 hover:border-purple-700 duration-300 px-1 py-1 pr-2"
               }
               to={"/"}
             >
@@ -96,56 +107,65 @@ const Navbar = () => {
                 src={mainLogo}
                 alt="mainLogo"
               />
-              <h1 className="md:text-xl text-lg font-bold sm:block hidden group-hover:text-cyan-700 duration-300">
+              <h1 className="md:text-xl text-lg font-bold sm:block hidden group-hover:text-purple-700 duration-300">
                 IE Hub
               </h1>
             </NavLink>
-            <div className="lg:flex gap-3 font-bold text-base hidden">
-              <ul className="flex gap-3">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "py-1 shadow-lg px-4 rounded-lg border-b-2 border-purple-700 text-purple-500"
-                      : "py-1 px-4 rounded-lg border-b-2 border-transparent hover:text-purple-700 duration-300"
-                  }
-                  to="/products"
-                >
-                  Products
-                </NavLink>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "py-1 shadow-lg px-4 rounded-lg border-b-2 border-purple-700 text-purple-500"
-                      : "py-1 px-4 rounded-lg border-b-2 border-transparent hover:text-purple-700 duration-300"
-                  }
-                  to="/my-imports"
-                >
-                  Imports
-                </NavLink>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "py-1 shadow-lg px-4 rounded-lg border-b-2 border-purple-700 text-purple-500"
-                      : "py-1 px-4 rounded-lg border-b-2 border-transparent hover:text-purple-700 duration-300"
-                  }
-                  to="/my-exports"
-                >
-                  Exports
-                </NavLink>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "py-1 shadow-lg px-4 rounded-lg border-b-2 border-purple-700 text-purple-500"
-                      : "py-1 px-4 rounded-lg border-b-2 border-transparent hover:text-purple-700 duration-300"
-                  }
-                  to="/add-product"
-                >
-                  Add Export
-                </NavLink>
-              </ul>
-            </div>
           </div>
-
+          <div className="lg:flex gap-3 font-bold text-base hidden">
+            <ul className="flex gap-2">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "p-1 text-purple-500"
+                    : "p-1 hover:text-purple-700 duration-300"
+                }
+                to="/"
+              >
+                Home
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "p-1 text-purple-500"
+                    : "p-1 hover:text-purple-700 duration-300"
+                }
+                to="/products"
+              >
+                Products
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "p-1 text-purple-500"
+                    : "p-1 hover:text-purple-700 duration-300"
+                }
+                to="/about"
+              >
+                About
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "p-1 text-purple-500"
+                    : "p-1 hover:text-purple-700 duration-300"
+                }
+                to="/career"
+              >
+                Career
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "p-1 text-purple-500"
+                    : "p-1 hover:text-purple-700 duration-300"
+                }
+                to="/contact"
+              >
+                Contact
+              </NavLink>
+            </ul>
+          </div>
           {user ? (
             <div className="relative flex items-center gap-3">
               <button
@@ -180,11 +200,18 @@ const Navbar = () => {
                   <div>
                     <Link
                       className="text-xl font-semibold hover:text-gray-600 duration-300 hover:scale-105 transition"
-                      to="/profile"
+                      to="/dashboard/profile"
                     >
                       Profile
                     </Link>
                   </div>
+                  <Link
+                    className="text-lg font-bold border-2 border-purple-700 hover:border-black hover:bg-black px-3 py-1 w-fit text-center rounded-lg hover:text-white text-purple-700 duration-300 mt-3 flex items-center gap-2"
+                    to={"/dashboard/home"}
+                  >
+                    Dashboard
+                    <MdDashboard></MdDashboard>
+                  </Link>
                   <div>
                     <Link
                       className="text-xl font-semibold text-orange-500 hover:text-orange-700 duration-300 hover:scale-105 transition"
