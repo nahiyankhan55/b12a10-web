@@ -11,7 +11,7 @@ const HowItWorks = () => {
       icon: <FaUserPlus />,
       title: "Create Account",
       subtitle:
-        "Register your business and verify your profile to get started in our platform.",
+        "Register your business and verify your profile to get started Import-Export.",
       aos: "fade-up",
     },
     {
@@ -63,7 +63,7 @@ const HowItWorks = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {steps.map((step) => (
           <div
             key={step.id}
