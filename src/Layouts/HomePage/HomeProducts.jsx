@@ -36,10 +36,10 @@ const HomeProducts = () => {
       {isLoading ? (
         <DataLoader></DataLoader>
       ) : (
-        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 mt-8 max-w-6xl mx-auto ">
+        <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 mt-8 max-w-6xl mx-auto">
           {productsHome.map((product) => (
             <div
-              data-aos="zoom-in"
+              // data-aos="zoom-in"
               key={product._id}
               className="border rounded-lg shadow-md overflow-hidden hover:shadow-lg hover:shadow-gray-400 transition duration-300"
             >
