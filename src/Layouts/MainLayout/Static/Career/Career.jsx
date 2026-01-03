@@ -1,3 +1,5 @@
+import { HeadProvider, Title } from "react-head";
+
 const Career = () => {
   const openings = [
     {
@@ -43,6 +45,10 @@ const Career = () => {
 
   return (
     <section className="min-h-screen px-4 md:px-8 lg:px-16 py-12 bg-base-100 text-base-content">
+      <HeadProvider>
+        <Title>Career || IE Hub</Title>
+      </HeadProvider>
+
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Header */}
         <div className="text-center space-y-4">

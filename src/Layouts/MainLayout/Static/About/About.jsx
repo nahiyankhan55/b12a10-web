@@ -1,6 +1,12 @@
+import { HeadProvider, Title } from "react-head";
+
 const About = () => {
   return (
     <div className="min-h-screen px-4 md:px-8 lg:px-16 py-12 bg-base-100 text-base-content">
+      <HeadProvider>
+        <Title>About || IE Hub</Title>
+      </HeadProvider>
+
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Page Header */}
         <div className="text-center space-y-4">
