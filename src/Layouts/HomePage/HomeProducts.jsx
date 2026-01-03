@@ -41,7 +41,7 @@ const HomeProducts = () => {
             <div
               // data-aos="zoom-in"
               key={product._id}
-              className="border rounded-lg shadow-md overflow-hidden hover:shadow-lg hover:shadow-gray-400 transition duration-300"
+              className="border rounded-lg shadow overflow-hidden hover:shadow-md shadow-gray-400 duration-300"
             >
               <img
                 src={product.image}
@@ -51,8 +51,6 @@ const HomeProducts = () => {
               <div className="p-4 flex flex-col gap-2">
                 <h2 className="font-semibold text-lg">{product.name}</h2>
                 <p>Price: ${product.price}</p>
-                <p>Origin: {product.origin}</p>
-                <Rating value={product.rating} precision={0.1} readOnly />
                 <p>
                   Available Quantity:{" "}
                   <span

@@ -11,7 +11,7 @@ const WhyChooseUs = () => {
     <section
       className={`w-full p-2 flex flex-col items-center gap-1 bg-linear-to-bl ${
         theme === "dark"
-          ? "from-purple-700 via-gray-500 to-gray-600"
+          ? "from-purple-900 via-gray-800 to-gray-900"
           : "from-purple-300 via-white to-white"
       } sm:py-20 py-10 sm:px-5`}
     >
