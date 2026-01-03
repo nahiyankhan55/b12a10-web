@@ -26,7 +26,7 @@ const WhyChooseUs = () => {
         A reliable platform built to simplify global trade with fast processing,
         secure systems, and a smooth importing and exporting experience.
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mt-8">
         <div
           data-aos="fade-up-right"
           className="p-6 bg-white shadow-md rounded border-2 border-purple-500 hover:scale-105 hover:shadow-lg hover:shadow-purple-300 duration-300 transition-all"

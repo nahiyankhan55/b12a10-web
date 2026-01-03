@@ -32,7 +32,7 @@ const WeWorkWith = () => {
         across the world. These global brands help our growing import export
         ecosystem.
       </p>
-      <div className="mt-5 md:w-4/5 w-full mx-auto bg-white border-b-2 border-gray-100 shadow-lg shadow-gray-400 p-1 rounded-lg sm:h-44 h-28 flex flex-col justify-center">
+      <div className="mt-5 max-w-6xl w-full mx-auto bg-white border-b-2 border-gray-100 shadow-lg shadow-gray-400 p-1 rounded-lg sm:h-44 h-28 flex flex-col justify-center">
         <Marquee gradient speed={50} gradientWidth={50} pauseOnHover>
           <img
             src={sb1}

@@ -21,7 +21,7 @@ const HomeProducts = () => {
   if (isLoading) return <DataLoader></DataLoader>;
 
   return (
-    <div className="max-w-6xl mx-auto py-10 px-5">
+    <div className="w-full py-10 px-5">
       <h1 className="sm:text-3xl md:text-4xl text-2xl font-bold text-center">
         Latest Products
       </h1>
@@ -33,47 +33,51 @@ const HomeProducts = () => {
         Latest products from trusted sellers, updated in real time so you always
         see the freshest, most in-demand items ready for global shipment.
       </p>
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 mt-8">
-        {productsHome.map((product) => (
-          <div
-            data-aos="zoom-in"
-            key={product._id}
-            className="border rounded-lg shadow-md overflow-hidden hover:shadow-lg hover:shadow-gray-400 transition duration-300"
-          >
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-48 object-cover shadow-md"
-            />
-            <div className="p-4 flex flex-col gap-2">
-              <h2 className="font-semibold text-lg">{product.name}</h2>
-              <p>Price: ${product.price}</p>
-              <p>Origin: {product.origin}</p>
-              <Rating value={product.rating} precision={0.1} readOnly />
-              <p>
-                Available Quantity:{" "}
-                <span
-                  className={`font-medium ${
-                    product.quantity > 0
-                      ? product.quantity > 10
-                        ? "text-purple-600"
-                        : "text-orange-600"
-                      : "text-red-600"
-                  }`}
+      {isLoading ? (
+        <DataLoader></DataLoader>
+      ) : (
+        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 mt-8 max-w-6xl mx-auto ">
+          {productsHome.map((product) => (
+            <div
+              data-aos="zoom-in"
+              key={product._id}
+              className="border rounded-lg shadow-md overflow-hidden hover:shadow-lg hover:shadow-gray-400 transition duration-300"
+            >
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-48 object-cover shadow-md"
+              />
+              <div className="p-4 flex flex-col gap-2">
+                <h2 className="font-semibold text-lg">{product.name}</h2>
+                <p>Price: ${product.price}</p>
+                <p>Origin: {product.origin}</p>
+                <Rating value={product.rating} precision={0.1} readOnly />
+                <p>
+                  Available Quantity:{" "}
+                  <span
+                    className={`font-medium ${
+                      product.quantity > 0
+                        ? product.quantity > 10
+                          ? "text-purple-600"
+                          : "text-orange-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {product.quantity}
+                  </span>
+                </p>
+                <Link
+                  to={`/product/${product._id}`}
+                  className="mt-2 text-center bg-purple-500 text-white py-1 rounded hover:bg-purple-600 transition"
                 >
-                  {product.quantity}
-                </span>
-              </p>
-              <Link
-                to={`/product/${product._id}`}
-                className="mt-2 text-center bg-purple-500 text-white py-1 rounded hover:bg-purple-600 transition"
-              >
-                See Details
-              </Link>
+                  See Details
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
       {/* Empty result */}
       {productsHome.length === 0 && (
         <p className="text-center mt-8 text-orange-500 font-medium text-lg">

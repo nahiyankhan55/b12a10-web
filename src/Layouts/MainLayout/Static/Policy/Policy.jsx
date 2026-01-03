@@ -15,7 +15,7 @@ const Policy = () => {
         <Title>Privacy Policy || IE Hub</Title>
       </HeadProvider>
 
-      <div className="max-w-5xl mx-auto space-y-10">
+      <div className="max-w-6xl mx-auto space-y-10">
         {/* Header */}
         <div className="text-center space-y-3">
           <h1 className="text-2xl font-bold">Privacy Policy</h1>

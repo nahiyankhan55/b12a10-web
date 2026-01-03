@@ -10,7 +10,7 @@ import { Link } from "react-router";
 const Footer = () => {
   return (
     <div className="w-full bg-linear-to-b from-black via-black to-purple-950 py-10 sm:px-8 px-5 flex flex-col items-center">
-      <div className="flex flex-wrap justify-between items-start gap-5 w-full py-5 border-b border-gray-500">
+      <div className="max-w-6xl mx-auto flex flex-wrap justify-between items-start gap-5 w-full py-5 border-b border-gray-500">
         <div className="flex flex-col items-start gap-3">
           <div className="flex items-center gap-3">
             <img
