@@ -5,6 +5,7 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 import footerLogo from "/ie_logo.jpg";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
@@ -29,54 +30,77 @@ const Footer = () => {
         <div className="flex flex-col items-start gap-3">
           <h5 className="font-semibold text-white text-xl">Information</h5>
           <ul className="font-medium text-gray-400 flex flex-col items-start gap-1">
-            <li>
-              <a href="#" className="hover:text-white transition duration-300">
-                About Us
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-white transition duration-300">
-                Privacy Policy
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-white transition duration-300">
-                Terms & Conditions
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-white transition duration-300">
-                Join Us
-              </a>
-            </li>
+            <Link
+              to={"/about"}
+              className="hover:text-white transition duration-300"
+            >
+              About Us
+            </Link>
+
+            <Link
+              to={"/privacy-policy"}
+              className="hover:text-white transition duration-300"
+            >
+              Privacy Policy
+            </Link>
+
+            <Link
+              to={"/terms-conditions"}
+              className="hover:text-white transition duration-300"
+            >
+              Terms & Conditions
+            </Link>
+
+            <Link
+              to={"/career"}
+              className="hover:text-white transition duration-300"
+            >
+              Career
+            </Link>
           </ul>
         </div>
         <div className="flex flex-col items-start gap-3">
           <h5 className="font-semibold text-white text-xl">Social</h5>
           <ul className="font-medium text-gray-400 flex flex-col items-start gap-2 text-xl">
             <li>
-              <a href="#" className="items-center flex gap-1 group">
+              <a
+                href="https://x.com/"
+                target="_blank"
+                className="items-center flex gap-1 group"
+              >
                 <span className="p-1 rounded-full bg-white group-hover:text-black duration-300 text-gray-700">
                   <FaXTwitter></FaXTwitter>
                 </span>
               </a>
             </li>
             <li>
-              <a href="#" className="items-center flex gap-1 group">
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                className="items-center flex gap-1 group"
+              >
                 <span className="p-1 rounded-full bg-white group-hover:bg-purple-700 group-hover:text-white text-black duration-300">
                   <FaLinkedinIn></FaLinkedinIn>
                 </span>
               </a>
             </li>
             <li>
-              <a href="#" className="items-center flex gap-1 group">
+              <a
+                href="https://www.facebook.com/"
+                target="_blank"
+                className="items-center flex gap-1 group"
+              >
                 <span className="p-1 rounded-full bg-white group-hover:bg-purple-600 group-hover:text-white text-black duration-300">
                   <FaFacebookF></FaFacebookF>
                 </span>
               </a>
             </li>
             <li>
-              <a href="#" className="items-center flex gap-1 group">
+              <a
+                href="http://mail.google.com/"
+                target="_blank"
+                className="items-center flex gap-1 group"
+              >
                 <span className="p-1 rounded-full bg-white group-hover:text-red-700 duration-300 text-black">
                   <FaEnvelope></FaEnvelope>
                 </span>
