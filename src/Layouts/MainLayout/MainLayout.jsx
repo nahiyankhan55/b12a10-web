@@ -6,7 +6,7 @@ const MainLayout = () => {
   return (
     <div className="flex flex-col w-full">
       <Navbar></Navbar>
-      <div className="py-9 w-full"></div>
+      <div className="py-8 w-full"></div>
       <div className="w-full">
         <Outlet></Outlet>
       </div>

@@ -57,7 +57,7 @@ const AddProductPage = () => {
     <div
       className={`py-10 px-5 w-full  ${
         theme === "dark"
-          ? "bg-gray-600 text-white"
+          ? "bg-gray-900 text-white"
           : "bg-linear-to-br from-white via-white to-purple-300"
       }`}
     >

@@ -42,7 +42,7 @@ const ForgotPasswordPage = () => {
   return (
     <div
       className={`flex justify-center items-center h-full w-full ${
-        theme === "dark" ? "bg-gray-600" : "bg-gray-100"
+        theme === "dark" ? "bg-gray-900" : "bg-gray-100"
       } px-5 py-10`}
     >
       <HeadProvider>

@@ -8,7 +8,7 @@ import WebContext from "../../Context/WebContext";
 const HomePage = () => {
   const { theme } = useContext(WebContext);
   return (
-    <div className={`w-full ${theme === "dark" && "bg-gray-600 text-white"}`}>
+    <div className={`w-full ${theme === "dark" && "bg-gray-900 text-white"}`}>
       <HomeSlider></HomeSlider>
       <HomeProducts></HomeProducts>
       <WhyChooseUs></WhyChooseUs>

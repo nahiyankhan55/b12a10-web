@@ -44,7 +44,7 @@ const RegisterPage = () => {
 
     handleRegisterEmail(email, password)
       .then(async (userCredential) => {
-        updateProfile(userCredential.user, {
+        await updateProfile(userCredential.user, {
           displayName: name,
           photoURL: image,
         });
@@ -92,7 +92,7 @@ const RegisterPage = () => {
   return (
     <div
       className={`w-full flex flex-col items-center sm:gap-5 gap-2 px-5 pt-5 pb-10 ${
-        theme === "dark" && "bg-gray-600 text-white"
+        theme === "dark" && "bg-gray-900 text-white"
       }`}
     >
       <HeadProvider>
@@ -116,6 +116,26 @@ const RegisterPage = () => {
           <TextField
             name="name"
             className="w-full"
+            sx={{
+              // Text color
+              "& .MuiInputBase-input": {
+                color: theme === "dark" ? "white" : "black",
+              },
+              // Label color
+              "& .MuiInputLabel-root": {
+                color: theme === "dark" ? "#a855f7" : "inherit", // purple-500
+              },
+              // Border color
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor:
+                    theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
+                },
+                "&:hover fieldset": {
+                  borderColor: "#9333ea", // purple-600
+                },
+              },
+            }}
             type="text"
             label="Name"
             variant="outlined"
@@ -125,6 +145,26 @@ const RegisterPage = () => {
           <TextField
             name="email"
             className="w-full"
+            sx={{
+              // Text color
+              "& .MuiInputBase-input": {
+                color: theme === "dark" ? "white" : "black",
+              },
+              // Label color
+              "& .MuiInputLabel-root": {
+                color: theme === "dark" ? "#a855f7" : "inherit", // purple-500
+              },
+              // Border color
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor:
+                    theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
+                },
+                "&:hover fieldset": {
+                  borderColor: "#9333ea", // purple-600
+                },
+              },
+            }}
             type="email"
             label="Email"
             variant="outlined"
@@ -135,6 +175,26 @@ const RegisterPage = () => {
           <TextField
             name="imageURL"
             className="w-full"
+            sx={{
+              // Text color
+              "& .MuiInputBase-input": {
+                color: theme === "dark" ? "white" : "black",
+              },
+              // Label color
+              "& .MuiInputLabel-root": {
+                color: theme === "dark" ? "#a855f7" : "inherit", // purple-500
+              },
+              // Border color
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor:
+                    theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
+                },
+                "&:hover fieldset": {
+                  borderColor: "#9333ea", // purple-600
+                },
+              },
+            }}
             type="url"
             label="Please Add a Direct Image URL"
             variant="outlined"
@@ -147,6 +207,26 @@ const RegisterPage = () => {
               <TextField
                 name="password"
                 className="w-full"
+                sx={{
+                  // Text color
+                  "& .MuiInputBase-input": {
+                    color: theme === "dark" ? "white" : "black",
+                  },
+                  // Label color
+                  "& .MuiInputLabel-root": {
+                    color: theme === "dark" ? "#a855f7" : "inherit", // purple-500
+                  },
+                  // Border color
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor:
+                        theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#9333ea", // purple-600
+                    },
+                  },
+                }}
                 type={showPass ? "text" : "password"}
                 label="Password"
                 variant="outlined"
@@ -190,14 +270,14 @@ const RegisterPage = () => {
         <p className="font-medium text-lg flex items-center gap-1">
           Already have an account?
           <Link
-            className="hover:text-purple-600 text-emerald-700 duration-300 font-bold"
+            className="text-purple-600 hover:text-emerald-600 duration-300 font-bold"
             to={"/login"}
           >
             Login
           </Link>
         </p>
         <Link
-          className="text-orange-600 hover:text-purple-800 duration-300 font-bold text-lg"
+          className="text-orange-600 hover:text-purple-600 duration-300 font-bold text-lg"
           to={"/forgot"}
         >
           Forgot Password?

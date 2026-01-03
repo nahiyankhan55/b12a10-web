@@ -14,11 +14,11 @@ function App() {
   const { theme } = useContext(WebContext);
   return (
     <div
-      className={`max-w-[1440px] mx-auto w-full h-screen flex flex-col items-center ${
-        theme === "dark" && "bg-gray-600 text-white"
+      className={`max-w-[1440px] mx-auto w-full flex flex-col items-center ${
+        theme === "dark" && "bg-gray-900 text-white!"
       }`}
     >
-      <div className="flex-1 w-full">
+      <div className="w-full">
         <Outlet></Outlet>
       </div>
     </div>

@@ -96,7 +96,7 @@ const MyExports = () => {
   };
 
   return (
-    <div className={theme === "dark" ? "w-full bg-gray-600" : "w-full"}>
+    <div className={theme === "dark" ? "w-full bg-gray-900" : "w-full"}>
       <div className={`max-w-7xl mx-auto px-5 py-10`}>
         <HeadProvider>
           <Title>My Exports || IE Hub</Title>
