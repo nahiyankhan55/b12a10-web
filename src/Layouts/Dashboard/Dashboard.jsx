@@ -8,7 +8,7 @@ const Dashboard = () => {
         <Sidebar></Sidebar>
       </div>
 
-      <div className="col-span-10 overflow-y-auto">
+      <div className="col-span-10 overflow-y-auto w-full">
         <Outlet></Outlet>
       </div>
     </div>

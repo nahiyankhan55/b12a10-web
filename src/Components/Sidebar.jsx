@@ -1,15 +1,39 @@
 import { Link, NavLink } from "react-router";
-import { MdDashboard } from "react-icons/md";
-import { FaHome } from "react-icons/fa";
+import { MdDashboard, MdPostAdd } from "react-icons/md";
+import { FaBoxOpen, FaHome, FaShip, FaUserCircle } from "react-icons/fa";
 
 const Sidebar = () => {
-  const commonLinks = [
-    { to: "/dashboard/home", label: "Dashboard", icon: <MdDashboard /> },
+  const menuLinks = [
+    {
+      to: "/dashboard/home",
+      label: "Dashboard Home",
+      icon: <MdDashboard />,
+    },
+    {
+      to: "/dashboard/add-product",
+      label: "Add Product",
+      icon: <MdPostAdd />,
+    },
+    {
+      to: "/dashboard/my-imports",
+      label: "My Imports",
+      icon: <FaBoxOpen />,
+    },
+    {
+      to: "/dashboard/my-exports",
+      label: "My Exports",
+      icon: <FaShip />,
+    },
+    {
+      to: "/dashboard/profile",
+      label: "My Profile",
+      icon: <FaUserCircle />,
+    },
   ];
 
   return (
     <div className="w-full h-full bg-purple-200 sm:p-4 p-1 space-y-2">
-      {commonLinks.map((item) => {
+      {menuLinks.map((item) => {
         return (
           <NavLink
             key={item.to}

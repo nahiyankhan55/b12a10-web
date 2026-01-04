@@ -105,7 +105,7 @@ const MyImports = () => {
                   className="border rounded-lg shadow hover:shadow-lg transition"
                 >
                   <img
-                    src={product.image}
+                    src={product.images[0]}
                     alt={product.name}
                     className="w-full h-48 object-cover shadow-md"
                   />

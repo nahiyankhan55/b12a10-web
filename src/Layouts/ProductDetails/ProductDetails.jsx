@@ -1,18 +1,40 @@
-import { Rating } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Chip,
+  Divider,
+  Rating,
+  Paper,
+  TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  IconButton,
+} from "@mui/material";
 import { useParams } from "react-router";
-import useAxiosPublic from "../../Hook/useAxiosPublic";
 import { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../Hook/useAxiosPublic";
 import DataLoader from "../../Components/DataLoader";
 import WebContext from "../../Context/WebContext";
 import { HeadProvider, Title } from "react-head";
 import { toast } from "react-toastify";
+import { MdClose, MdLocationOn, MdPayment, MdInventory } from "react-icons/md";
+
+// Swiper imports
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const AxiosPublic = useAxiosPublic();
-  const { user } = useContext(WebContext);
-
+  const { user, theme } = useContext(WebContext);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [qty, setQty] = useState("");
 
@@ -27,17 +49,22 @@ const ProductDetails = () => {
       return res.data.data;
     },
   });
-  console.log(product);
 
-  if (isLoading) return <DataLoader></DataLoader>;
+  if (isLoading) return <DataLoader />;
+  if (!product)
+    return (
+      <Typography align="center" sx={{ py: 10 }}>
+        Product Not Found!
+      </Typography>
+    );
 
-  // Disable logic
-  const isDisabled = Number(qty) <= 0 || Number(qty) > product.quantity;
+  // Logic for MOQ and Stock validation
+  const minQty = product.moq || 1;
+  const maxQty = product.quantity;
+  const isDisabled = Number(qty) < minQty || Number(qty) > maxQty;
 
-  // Simple function for import
   const handleImport = async () => {
-    if (isDisabled) return;
-    if (!user) return;
+    if (isDisabled || !user) return;
 
     try {
       const res = await AxiosPublic.post("/products/import", {
@@ -47,128 +74,252 @@ const ProductDetails = () => {
       });
 
       if (res.data.success) {
-        toast.success("Product imported successfully!", {
-          position: "top-center",
-          autoClose: 2000,
-        });
+        toast.success("Import request submitted successfully!");
         setOpenModal(false);
         setQty("");
         refetch();
-      } else {
-        toast.error("Failed to import", {
-          position: "top-right",
-          autoClose: 2000,
-        });
       }
     } catch (err) {
-      toast.error(`Photo update failed: ${err.message}`, {
-        position: "top-right",
-        autoClose: 2000,
-      });
+      toast.error(`Error: ${err.message}`);
     }
   };
 
-  if (!product)
-    return (
-      <p className="text-lg font-medium text-orange-600 py-10 px-5 text-center">
-        Product Not Found!
-      </p>
-    );
-
   return (
-    <div className="max-w-5xl mx-auto p-8">
+    <Box
+      sx={{
+        py: 8,
+        px: 2,
+        bgcolor: theme === "dark" ? "grey.900" : "#fafafa",
+        color: theme === "dark" ? "white" : "text.primary",
+        minHeight: "100vh",
+      }}
+    >
       <HeadProvider>
-        <Title>Product || IE Hub</Title>
+        <Title>{product.name} || IE Hub</Title>
       </HeadProvider>
-      <div className="grid md:grid-cols-2 gap-10 items-center">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full md:h-96 sm:h-80 h-48 object-cover rounded-lg shadow-md shadow-gray-400"
-        />
 
-        <div>
-          <h1 className="md:text-3xl text-2xl font-bold">{product.name}</h1>
+      <Paper
+        elevation={3}
+        sx={{
+          maxWidth: "1100px",
+          mx: "auto",
+          p: { xs: 2, md: 4 },
+          borderRadius: 4,
+          bgcolor: theme === "dark" ? "grey.800" : "white",
+          color: "inherit",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: 5,
+          }}
+        >
+          {/* Left Side: Swiper Slider */}
+          <Box sx={{ width: { xs: "110%", md: "50%" }, ml: { xs: -2, md: 0 } }}>
+            <Swiper
+              spaceBetween={10}
+              navigation={true}
+              thumbs={{
+                swiper:
+                  thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
+              }}
+              modules={[FreeMode, Navigation, Thumbs]}
+              className="rounded-xl overflow-hidden shadow-lg"
+              style={{ height: "400px" }}
+            >
+              {product.images?.map((img, i) => (
+                <SwiperSlide key={i}>
+                  <img
+                    src={img}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
 
-          <p className="text-gray-600 mt-2">{product.description}</p>
-
-          <div className="mt-4 space-y-1">
-            <p className="text-lg font-semibold">Price: ${product.price}</p>
-            <p className="text-lg">Origin: {product.origin}</p>
-
-            <p className="text-lg">
-              Available:
-              <span
-                className={`ml-2 font-bold ${
-                  product.quantity > 10
-                    ? "text-purple-600"
-                    : product.quantity > 0
-                    ? "text-orange-600"
-                    : "text-red-600"
-                }`}
+            {/* Thumbnail Slider */}
+            <Box sx={{ mt: 2 }}>
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={10}
+                slidesPerView={4}
+                freeMode={true}
+                watchSlidesProgress={true}
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="thumbs-swiper"
               >
-                {product.quantity}
-              </span>
-            </p>
+                {product.images?.map((img, i) => (
+                  <SwiperSlide key={i} className="cursor-pointer">
+                    <img
+                      src={img}
+                      alt="thumb"
+                      className="h-20 w-full object-cover rounded-md border-2 border-transparent hover:border-purple-500"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </Box>
+          </Box>
 
-            <Rating value={product.rating} precision={0.1} readOnly />
-          </div>
-
-          <button
-            onClick={() => setOpenModal(true)}
-            className="mt-5 bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 font-medium"
+          {/* Right Side: Product Info */}
+          <Box
+            sx={{
+              width: { xs: "100%", md: "50%" },
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+            }}
           >
-            Import Now
-          </button>
-        </div>
-      </div>
-
-      {/* Modal */}
-      {openModal && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center text-black">
-          <div className="bg-white p-6 rounded-lg w-96 shadow-xl">
-            <h2 className="text-xl font-semibold mb-3">Import Product</h2>
-
-            <p className="text-gray-700">Available: {product.quantity} units</p>
-
-            <input
-              type="number"
-              value={qty}
-              onChange={(e) => setQty(e.target.value)}
-              placeholder="Enter quantity"
-              className="w-full border p-2 rounded mt-3"
-            />
-
-            {Number(qty) > product.quantity && (
-              <p className="text-red-600 text-sm mt-1">
-                Quantity cannot exceed available stock
-              </p>
-            )}
-
-            <div className="flex justify-end gap-3 mt-5">
-              <button
-                onClick={() => setOpenModal(false)}
-                className="px-4 py-2 border rounded hover:bg-gray-100"
+            <Box>
+              <Chip
+                label={product.category}
+                color="secondary"
+                size="small"
+                sx={{ mb: 1 }}
+              />
+              <Typography variant="h4" fontWeight="bold">
+                {product.name}
+              </Typography>
+              <Box
+                sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}
               >
-                Cancel
-              </button>
+                <Rating
+                  value={product.rating}
+                  precision={0.1}
+                  readOnly
+                  size="small"
+                />
+                <Typography variant="body2" sx={{ opacity: 0.7 }}>
+                  ({product.rating} Rating)
+                </Typography>
+              </Box>
+            </Box>
 
-              <button
-                onClick={handleImport}
-                disabled={isDisabled}
-                className={`px-5 py-2 rounded text-white ${
-                  isDisabled
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-purple-600 hover:bg-purple-700"
-                }`}
+            <Typography variant="h5" color="primary.main" fontWeight="bold">
+              ${product.price}{" "}
+              <small style={{ fontSize: "14px", color: "gray" }}>/ Unit</small>
+            </Typography>
+
+            <Divider />
+
+            <Typography variant="body1" sx={{ opacity: 0.8, lineHeight: 1.7 }}>
+              {product.description}
+            </Typography>
+
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 2,
+                my: 2,
+              }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <MdLocationOn className="text-purple-500" size={20} />
+                <Typography variant="body2">
+                  <strong>Origin:</strong> {product.origin}
+                </Typography>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <MdInventory className="text-purple-500" size={20} />
+                <Typography variant="body2">
+                  <strong>Stock:</strong> {product.quantity}
+                </Typography>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <MdPayment className="text-purple-500" size={20} />
+                <Typography variant="body2">
+                  <strong>Payment:</strong> {product.paymentOption}
+                </Typography>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Typography variant="body2">
+                  <strong>Min Order (MOQ):</strong> {product.moq} Units
+                </Typography>
+              </Box>
+            </Box>
+
+            <Divider />
+
+            <Box sx={{ mt: "auto", pt: 2 }}>
+              <Button
+                variant="contained"
+                fullWidth
+                size="large"
+                onClick={() => setOpenModal(true)}
+                sx={{
+                  py: 1.5,
+                  fontWeight: "bold",
+                  borderRadius: 2,
+                  bgcolor: "secondary.main",
+                  "&:hover": { bgcolor: "secondary.dark" },
+                }}
               >
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+                Request Import Now
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      </Paper>
+
+      {/* --- Import Modal (MUI Style) --- */}
+      <Dialog
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        maxWidth="xs"
+        fullWidth
+      >
+        <DialogTitle
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          Import Request
+          <IconButton onClick={() => setOpenModal(false)}>
+            <MdClose />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent sx={{ pb: 4 }}>
+          <Typography variant="body2" gutterBottom>
+            Manufacturer Stock: <strong>{product.quantity}</strong> | MOQ:{" "}
+            <strong>{product.moq}</strong>
+          </Typography>
+          <TextField
+            fullWidth
+            type="number"
+            label="Order Quantity"
+            value={qty}
+            onChange={(e) => setQty(e.target.value)}
+            sx={{ mt: 2 }}
+            error={
+              Number(qty) > product.quantity ||
+              (qty !== "" && Number(qty) < product.moq)
+            }
+            helperText={
+              Number(qty) > product.quantity
+                ? "Exceeds stock limit"
+                : Number(qty) < product.moq && qty !== ""
+                ? `Minimum order is ${product.moq}`
+                : ""
+            }
+          />
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, py: 1.2 }}
+            disabled={isDisabled}
+            onClick={handleImport}
+          >
+            Confirm Order
+          </Button>
+        </DialogContent>
+      </Dialog>
+    </Box>
   );
 };
 

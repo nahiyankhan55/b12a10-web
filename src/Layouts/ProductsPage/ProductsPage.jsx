@@ -54,7 +54,7 @@ const ProductsPage = () => {
         {isLoading ? (
           <DataLoader></DataLoader>
         ) : (
-          <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 mt-10">
+          <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 mt-10">
             {products.map((product) => (
               <div
                 data-aos="zoom-in"
@@ -62,7 +62,7 @@ const ProductsPage = () => {
                 className="border rounded-lg shadow hover:shadow-lg transition"
               >
                 <img
-                  src={product.image}
+                  src={product.images[0]}
                   alt={product.name}
                   className="w-full h-48 object-cover shadow-md"
                 />

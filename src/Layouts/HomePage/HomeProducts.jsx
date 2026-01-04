@@ -43,7 +43,7 @@ const HomeProducts = () => {
               className="border rounded-lg shadow overflow-hidden hover:shadow-md shadow-gray-400 duration-300"
             >
               <img
-                src={product.image}
+                src={product.images[0]}
                 alt={product.name}
                 className="w-full h-48 object-cover shadow-md"
               />
