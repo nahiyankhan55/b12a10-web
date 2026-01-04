@@ -18,7 +18,6 @@ const HomeProducts = () => {
     retry: 3,
     retryDelay: 2000,
   });
-  if (isLoading) return <DataLoader></DataLoader>;
 
   return (
     <div className="w-full py-10 px-5">
@@ -39,7 +38,7 @@ const HomeProducts = () => {
         <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 mt-8 max-w-6xl mx-auto">
           {productsHome.map((product) => (
             <div
-              // data-aos="zoom-in"
+              data-aos="zoom-in"
               key={product._id}
               className="border rounded-lg shadow overflow-hidden hover:shadow-md shadow-gray-400 duration-300"
             >
