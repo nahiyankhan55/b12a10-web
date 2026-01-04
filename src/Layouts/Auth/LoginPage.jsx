@@ -1,14 +1,17 @@
 import { Button, TextField } from "@mui/material";
 import { useContext, useState } from "react";
 import { HeadProvider, Title } from "react-head";
-import WebContext from "../../Context/WebContext";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
+import { useQuery } from "@tanstack/react-query";
+import WebContext from "../../Context/WebContext";
+import useAxiosPublic from "../../Hook/useAxiosPublic";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const AxiosPublic = useAxiosPublic();
   const {
     handleLoginEmail,
     handleGoogle,
@@ -19,7 +22,14 @@ const LoginPage = () => {
   } = useContext(WebContext);
   const navigate = useNavigate();
 
-  // form submit functionality
+  const { data: users = [] } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await AxiosPublic.get("/users");
+      return res.data;
+    },
+  });
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const target = e.target;
@@ -32,7 +42,7 @@ const LoginPage = () => {
         setUser(userCredential.user);
         setUserName(userCredential.user.displayName);
         setUserImage(userCredential.user.photoURL);
-        console.log("userCredential:>", userCredential);
+
         toast.success("Login Successful.", {
           position: "top-center",
           autoClose: 2000,
@@ -52,19 +62,21 @@ const LoginPage = () => {
   const handleGoogleMethod = async () => {
     try {
       const result = await handleGoogle();
-      setUser(result.user);
-      setUserImage(result.user.photoURL);
-      setUserName(result.user.displayName);
-      toast.success(`Login Successful`, {
-        position: "top-center",
-        autoClose: 2000,
-      });
+      const user = result.user;
+
+      setUser(user);
+
+      const userInfo = {
+        name: user.displayName,
+        email: user.email,
+      };
+
+      await AxiosPublic.post("/users", userInfo);
+
+      toast.success("Login Successful");
       navigate("/");
     } catch (error) {
-      toast.error(`Google Registration Error: ${error.message}`, {
-        position: "top-center",
-        autoClose: 2000,
-      });
+      toast.error("Login Failed");
     }
   };
 
@@ -76,6 +88,7 @@ const LoginPage = () => {
         <HeadProvider>
           <Title>Login || IE Hub</Title>
         </HeadProvider>
+
         <div className="flex flex-col gap-1 items-center md:mt-8 mt-4">
           <h3 className="md:text-4xl sm:text-3xl text-2xl font-semibold">
             Login
@@ -90,114 +103,87 @@ const LoginPage = () => {
             onSubmit={handleFormSubmit}
             className="flex flex-col justify-center gap-4 mt-4 w-full"
           >
-            <div className="flex md:flex-nowrap flex-wrap items-center gap-4">
-              <TextField
-                name="email"
-                className="w-full"
-                sx={{
-                  // Text color
-                  "& .MuiInputBase-input": {
-                    color: theme === "dark" ? "white" : "black",
-                  },
-                  // Label color
-                  "& .MuiInputLabel-root": {
-                    color: theme === "dark" ? "#a855f7" : "inherit", // purple-500
-                  },
-                  // Border color
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor:
-                        theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
-                    },
-                    "&:hover fieldset": {
-                      borderColor: "#9333ea", // purple-600
-                    },
-                  },
-                }}
-                type="email"
-                label="Email"
-                variant="outlined"
-                autoComplete="username"
-                required
-              ></TextField>
-            </div>
+            <TextField
+              name="email"
+              fullWidth
+              sx={{
+                "& .MuiInputBase-input": {
+                  color: theme === "dark" ? "white" : "black",
+                },
+                "& .MuiInputLabel-root": {
+                  color: theme === "dark" ? "#a855f7" : "inherit",
+                },
+                "& .MuiOutlinedInput-root fieldset": {
+                  borderColor:
+                    theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
+                },
+              }}
+              type="email"
+              label="Email"
+              required
+            />
 
             <div className="w-full relative">
               <TextField
                 name="password"
-                className="w-full"
+                fullWidth
                 sx={{
-                  // Text color
                   "& .MuiInputBase-input": {
                     color: theme === "dark" ? "white" : "black",
                   },
-                  // Label color
                   "& .MuiInputLabel-root": {
-                    color: theme === "dark" ? "#a855f7" : "inherit", // purple-500
+                    color: theme === "dark" ? "#a855f7" : "inherit",
                   },
-                  // Border color
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor:
-                        theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
-                    },
-                    "&:hover fieldset": {
-                      borderColor: "#9333ea", // purple-600
-                    },
+                  "& .MuiOutlinedInput-root fieldset": {
+                    borderColor:
+                      theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
                   },
                 }}
                 type={showPassword ? "text" : "password"}
                 label="Password"
-                variant="outlined"
-                autoComplete="current-password"
                 required
               />
-              {!showPassword ? (
-                <MdOutlineVisibilityOff
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute top-4 right-3 text-2xl z-40 cursor-pointer"
-                ></MdOutlineVisibilityOff>
-              ) : (
-                <MdOutlineVisibility
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute top-4 right-3 text-2xl z-40 cursor-pointer"
-                ></MdOutlineVisibility>
-              )}
+              <div
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute top-4 right-3 text-2xl z-40 cursor-pointer"
+              >
+                {showPassword ? (
+                  <MdOutlineVisibility />
+                ) : (
+                  <MdOutlineVisibilityOff />
+                )}
+              </div>
             </div>
 
-            <div className="w-full flex flex-col items-center">
-              <Button
-                type="submit"
-                className="transition-all duration-300 hover:shadow-md rounded-md border-2 text-white! shadow-gray-400/90 bg-linear-to-tr! w-full mx-auto py-2 from-emerald-700 to-fuchsia-700 hover:to-purple-600"
-              >
-                <p className="text-lg font-semibold py-1">Login</p>
-              </Button>
-            </div>
+            <Button
+              type="submit"
+              sx={{ textTransform: "none" }}
+              className="transition-all duration-300 hover:shadow-md rounded-md text-white! bg-linear-to-tr! w-full py-2 from-emerald-700 to-fuchsia-700 hover:to-purple-600"
+            >
+              <p className="text-lg font-semibold py-1">Login</p>
+            </Button>
           </form>
 
           <p className="text-xl font-bold text-center">or</p>
+
           <button
             onClick={handleGoogleMethod}
-            className="w-full mx-auto border-2 border-purple-500 bg-white rounded-md text-xl font-semibold transition hover:shadow-md hover:scale-105 shadow-gray-400/90 hover:bg-purple-200 hover:border-purple-600 py-2 flex items-center justify-center gap-2 text-black cursor-pointer"
+            className="w-full border-2 border-purple-500 bg-white rounded-md text-xl font-semibold transition hover:shadow-md hover:scale-105 py-2 flex items-center justify-center gap-2 text-black cursor-pointer"
           >
-            <FcGoogle className="text-2xl"></FcGoogle>
-            Google
+            <FcGoogle className="text-2xl" /> Google
           </button>
-          <p className="font-medium text-lg flex items-center gap-1">
-            New User?
-            <Link
-              className="text-purple-600 hover:text-teal-600 duration-300 font-bold"
-              to={"/register"}
-            >
-              Register
+
+          <div className="flex flex-col gap-2 mt-2">
+            <p className="font-medium text-lg">
+              New User?{" "}
+              <Link className="text-purple-600 font-bold" to="/register">
+                Register
+              </Link>
+            </p>
+            <Link className="text-orange-600 font-bold text-lg" to="/forgot">
+              Forgot Password?
             </Link>
-          </p>
-          <Link
-            className="text-orange-600 hover:text-purple-600 duration-300 font-bold text-lg"
-            to={"/forgot"}
-          >
-            Forgot Password?
-          </Link>
+          </div>
         </div>
       </div>
     </div>

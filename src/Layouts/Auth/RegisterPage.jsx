@@ -4,12 +4,15 @@ import { MdOutlineVisibilityOff, MdVisibility } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router";
 import { useContext, useState } from "react";
-import WebContext from "../../Context/WebContext";
 import { updateProfile } from "firebase/auth";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
+import WebContext from "../../Context/WebContext";
+import useAxiosPublic from "../../Hook/useAxiosPublic";
 
 const RegisterPage = () => {
   const [showPass, setShowPass] = useState(false);
+  const AxiosPublic = useAxiosPublic();
   const {
     handleRegisterEmail,
     handleGoogle,
@@ -19,6 +22,14 @@ const RegisterPage = () => {
     theme,
   } = useContext(WebContext);
   const navigate = useNavigate();
+
+  const { data: users = [] } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await AxiosPublic.get("/users");
+      return res.data;
+    },
+  });
 
   const validatePassword = (password) => {
     const regex =
@@ -42,50 +53,56 @@ const RegisterPage = () => {
       return;
     }
 
-    handleRegisterEmail(email, password)
-      .then(async (userCredential) => {
-        await updateProfile(userCredential.user, {
-          displayName: name,
-          photoURL: image,
-        });
-        setUser(userCredential.user);
-        setUserName(name);
-        setUserImage(image);
-
-        toast.success("Registration Successful.", {
-          position: "top-right",
-          autoClose: 2000,
-        });
-        target.reset();
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error(`Registration Error: ${error.message}`, {
-          position: "top-right",
-          autoClose: 2000,
-        });
+    try {
+      const userCredential = await handleRegisterEmail(email, password);
+      await updateProfile(userCredential.user, {
+        displayName: name,
+        photoURL: image,
       });
-  };
 
+      const userInfo = { name, email, image };
+      await AxiosPublic.post("/users", userInfo);
+
+      setUser(userCredential.user);
+      setUserName(name);
+      setUserImage(image);
+
+      toast.success("Registration Successful.", {
+        position: "top-right",
+        autoClose: 2000,
+      });
+      target.reset();
+      navigate("/");
+    } catch (error) {
+      toast.error(`Registration Error: ${error.message}`);
+    }
+  };
   const handleGoogleMethod = async () => {
     try {
       const result = await handleGoogle();
-      setUser(result.user);
-      setUserImage(result.user.photoURL);
-      setUserName(result.user.displayName);
+      const user = result.user;
+
+      setUser(user);
+      setUserImage(user.photoURL);
+      setUserName(user.displayName);
+
+      const exists = users.find((u) => u.email === user.email);
+      if (!exists) {
+        const userInfo = {
+          name: user.displayName,
+          email: user.email,
+          image: user.photoURL,
+        };
+        await AxiosPublic.post("/users", userInfo);
+      }
 
       toast.success("Registration Successful", {
         position: "top-right",
         autoClose: 2000,
       });
-
       navigate("/");
     } catch (error) {
-      toast.error(`Google Registration Error: ${error.message}`, {
-        position: "top-right",
-        autoClose: 2000,
-      });
+      toast.error(`Google Registration Error: ${error.message}`);
     }
   };
 
@@ -115,173 +132,115 @@ const RegisterPage = () => {
         >
           <TextField
             name="name"
-            className="w-full"
+            fullWidth
             sx={{
-              // Text color
               "& .MuiInputBase-input": {
                 color: theme === "dark" ? "white" : "black",
               },
-              // Label color
               "& .MuiInputLabel-root": {
-                color: theme === "dark" ? "#a855f7" : "inherit", // purple-500
+                color: theme === "dark" ? "#a855f7" : "inherit",
               },
-              // Border color
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor:
-                    theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#9333ea", // purple-600
-                },
+              "& .MuiOutlinedInput-root fieldset": {
+                borderColor:
+                  theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
               },
             }}
-            type="text"
             label="Name"
             variant="outlined"
-            autoComplete="name"
             required
           />
           <TextField
             name="email"
-            className="w-full"
+            fullWidth
             sx={{
-              // Text color
               "& .MuiInputBase-input": {
                 color: theme === "dark" ? "white" : "black",
               },
-              // Label color
               "& .MuiInputLabel-root": {
-                color: theme === "dark" ? "#a855f7" : "inherit", // purple-500
+                color: theme === "dark" ? "#a855f7" : "inherit",
               },
-              // Border color
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor:
-                    theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#9333ea", // purple-600
-                },
+              "& .MuiOutlinedInput-root fieldset": {
+                borderColor:
+                  theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
               },
             }}
             type="email"
             label="Email"
             variant="outlined"
-            autoComplete="email"
             required
           />
-
           <TextField
             name="imageURL"
-            className="w-full"
+            fullWidth
             sx={{
-              // Text color
               "& .MuiInputBase-input": {
                 color: theme === "dark" ? "white" : "black",
               },
-              // Label color
               "& .MuiInputLabel-root": {
-                color: theme === "dark" ? "#a855f7" : "inherit", // purple-500
+                color: theme === "dark" ? "#a855f7" : "inherit",
               },
-              // Border color
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor:
-                    theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#9333ea", // purple-600
-                },
+              "& .MuiOutlinedInput-root fieldset": {
+                borderColor:
+                  theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
               },
             }}
             type="url"
-            label="Please Add a Direct Image URL"
+            label="Image URL"
             variant="outlined"
-            autoComplete="imageURL"
             required
           />
-
-          <div className="flex md:flex-nowrap flex-wrap items-center gap-4">
-            <div className="w-full relative">
-              <TextField
-                name="password"
-                className="w-full"
-                sx={{
-                  // Text color
-                  "& .MuiInputBase-input": {
-                    color: theme === "dark" ? "white" : "black",
-                  },
-                  // Label color
-                  "& .MuiInputLabel-root": {
-                    color: theme === "dark" ? "#a855f7" : "inherit", // purple-500
-                  },
-                  // Border color
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor:
-                        theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
-                    },
-                    "&:hover fieldset": {
-                      borderColor: "#9333ea", // purple-600
-                    },
-                  },
-                }}
-                type={showPass ? "text" : "password"}
-                label="Password"
-                variant="outlined"
-                autoComplete="current-password"
-                required
-              />
-              {!showPass ? (
-                <MdOutlineVisibilityOff
-                  onClick={() => setShowPass(!showPass)}
-                  className="absolute top-4 right-3 text-2xl z-40 cursor-pointer"
-                />
-              ) : (
-                <MdVisibility
-                  onClick={() => setShowPass(!showPass)}
-                  className="absolute top-4 right-3 text-2xl z-40 cursor-pointer"
-                />
-              )}
+          <div className="w-full relative">
+            <TextField
+              name="password"
+              fullWidth
+              sx={{
+                "& .MuiInputBase-input": {
+                  color: theme === "dark" ? "white" : "black",
+                },
+                "& .MuiInputLabel-root": {
+                  color: theme === "dark" ? "#a855f7" : "inherit",
+                },
+                "& .MuiOutlinedInput-root fieldset": {
+                  borderColor:
+                    theme === "dark" ? "rgba(255,255,255,0.6)" : "inherit",
+                },
+              }}
+              type={showPass ? "text" : "password"}
+              label="Password"
+              variant="outlined"
+              required
+            />
+            <div
+              onClick={() => setShowPass(!showPass)}
+              className="absolute top-4 right-3 text-2xl z-40 cursor-pointer"
+            >
+              {showPass ? <MdVisibility /> : <MdOutlineVisibilityOff />}
             </div>
           </div>
 
-          <div className="w-full flex flex-col items-center">
-            <Button
-              type="submit"
-              className="w-full md:w-2/3 mx-auto py-2 rounded-md border-2 text-white! shadow-gray-400/90 bg-linear-to-tr from-purple-600 to-purple-500 transition-all duration-300 hover:to-purple-600 hover:shadow-md"
-            >
-              <p className="text-lg font-semibold py-1">Register</p>
-            </Button>
-          </div>
+          <Button
+            type="submit"
+            className="w-full py-2 rounded-md border-2 text-white! bg-linear-to-tr from-purple-600 to-purple-500"
+          >
+            Register
+          </Button>
         </form>
 
         <p className="text-xl font-bold text-center">or</p>
 
         <button
           onClick={handleGoogleMethod}
-          className="w-full md:w-1/2 mx-auto border-2 border-purple-500 bg-white rounded-md text-xl font-semibold transition hover:shadow-md hover:scale-105 shadow-gray-400/90 hover:border-purple-600 py-2 flex items-center justify-center gap-2 text-black cursor-pointer"
+          className="w-full border-2 border-purple-500 bg-white rounded-md text-xl font-semibold py-2 flex items-center justify-center gap-2 text-black cursor-pointer"
         >
-          <FcGoogle className="text-2xl"></FcGoogle>
-          Google
+          <FcGoogle className="text-2xl" /> Google
         </button>
 
-        <p className="font-medium text-lg flex items-center gap-1">
-          Already have an account?
-          <Link
-            className="text-purple-600 hover:text-emerald-600 duration-300 font-bold"
-            to={"/login"}
-          >
+        <p className="font-medium text-lg">
+          Already have an account?{" "}
+          <Link className="text-purple-600 font-bold" to="/login">
             Login
           </Link>
         </p>
-        <Link
-          className="text-orange-600 hover:text-purple-600 duration-300 font-bold text-lg"
-          to={"/forgot"}
-        >
-          Forgot Password?
-        </Link>
       </div>
     </div>
   );
